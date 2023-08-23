@@ -19,7 +19,7 @@ async function fetchAllProductsData() {
 
 export default async function Home() {
   let { result }: responseType = await fetchAllProductsData();
-  console.log(result);
+  // console.log(result);
   return (
     <main>
       <Hero />
