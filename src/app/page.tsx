@@ -9,10 +9,10 @@ import ProductsType from "@/components/views/ProductsType";
 
 async function fetchAllProductsData() {
   let res = await fetch(
-    `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/production?query=*[_type == "products"]`
+    `https://lt4uzorl.api.sanity.io/v2021-06-07/data/query/production?query=*[_type == "products"]`
   );
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to all fetch data");
   }
   return res.json();
 }
