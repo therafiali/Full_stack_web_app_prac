@@ -9,7 +9,7 @@ async function fetchAllProductData() {
         }
     })
     if (!res.ok) {
-        throw new Error("Failed to fetch")
+        throw new Error("Failed to fetch product page")
     }
     return res.json();
 };

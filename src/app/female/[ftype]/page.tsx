@@ -16,7 +16,7 @@ async function fetchAllProductsData() {
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch");
+    throw new Error("Failed to fetch female");
   }
 
   return res.json();
