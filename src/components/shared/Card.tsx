@@ -18,7 +18,7 @@ const Card: FC<{ singleProductData: oneProductType }> = ({
         <Image
           height={500}
           width={500}
-          className="w-full bg-red-500 h-full"
+          className="w-full bg-white h-full"
           src={urlFor(singleProductData.image[0])
             .width(1000)
             .height(1000)
