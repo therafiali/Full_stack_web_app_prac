@@ -1,6 +1,6 @@
 import ContextWrapper from "@/app/global/Context";
 import { oneProductType, responseType } from "@/components/utils/ProductDataArrayAndTypes";
-// import ProductsDetail from "@/components/views/ProductsDetail";
+import ProductsDetail from "@/components/views/ProductsDetail";
 
 
 // metadata genrator
@@ -41,7 +41,7 @@ const Catalog = async ({ params }: { params: { slug: string } }) => {
     let data: responseType = await fetchPreviewData(params.slug)
     return (
         <ContextWrapper>
-            {/* <ProductsDetail item={data.result[0]} /> */}
+            <ProductsDetail item={data.result[0]} />
         </ContextWrapper>
     )
 }
