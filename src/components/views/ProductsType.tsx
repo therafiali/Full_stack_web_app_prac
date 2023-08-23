@@ -78,7 +78,7 @@ const ProductsType = () => {
             aria-label="ridirect user to discount sale page"
             className="py-1 px-8 bg-[#474747] rounded-lg tracking-widest"
           >
-            DINEWEEKENDSALE
+            DINEWEEKENDSALEe
           </button>
         </div>
       </div>
