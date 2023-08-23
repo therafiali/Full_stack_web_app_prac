@@ -10,14 +10,14 @@ export async function GET(request: NextRequest) {
     let dataFrom_APi = await res.json();
     orignalData.push(...dataFrom_APi.result)
 
-    // if (url.has("start") || url.has("end")) {
-    //     if (orignalData[Number(url.get("start"))]) {
-    //         let productArray = orignalData.slice(Number(url.get("start")), Number(url.get("end")))
-    //         return NextResponse.json({ productArray })
-    //     }
-    //     return NextResponse.json({ productArray: "Not found" })
+    if (url.has("start") || url.has("end")) {
+        if (orignalData[Number(url.get("start"))]) {
+            let productArray = orignalData.slice(Number(url.get("start")), Number(url.get("end")))
+            return NextResponse.json({ productArray })
+        }
+        return NextResponse.json({ productArray: "Not found" })
 
-    // }
+    }
 
     return NextResponse.json({ orignalData })
 };
