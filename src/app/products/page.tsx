@@ -3,7 +3,7 @@ import AllProductsCompo from "@/components/views/AllProducts";
 
 
 async function fetchAllProductData() {
-    let res = await fetch(`${BASE_PATH_FORAPI}/api/products?start=0&end=10`, {
+    let res = await fetch(`https://my-app-pi-lake.vercel.app/api/products?start=0&end=10`, {
         next: {
             revalidate: 120
         }
