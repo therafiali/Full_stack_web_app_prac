@@ -7,6 +7,7 @@ import { cartContext } from "@/app/global/Context";
 import { BsCart2 } from "react-icons/bs";
 import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
+import toast, { Toaster } from 'react-hot-toast';
 
 const builder: any = imageUrlBuilder(client);
 
@@ -15,7 +16,8 @@ function urlFor(source: any) {
 }
 
 const ProductDetail: FC<{ item: oneProductType }> = ({ item }) => {
-  let { cartArray, userData, dispatch } = useContext(cartContext);
+  let { state, dispatch } = useContext(cartContext);
+  console.log(state);
   const [imageForPreviewOfSelected, setImageForPreviewOfSelected] =
     useState<string>(item.image[0]._key);
   const [quantity, setQuantity] = useState(1);
@@ -43,12 +45,22 @@ const ProductDetail: FC<{ item: oneProductType }> = ({ item }) => {
 
   function incrementTheQuantity() {
     setQuantity(quantity + 1);
+    dispatch({ payload: "hi" });
   }
 
   function decrementTheQuantity() {
+    
     if (quantity !== 0) {
       setQuantity(quantity - 1);
     }
+  }
+
+  function handleAddToCart() {
+    let dataToAddInCart = {
+      productId: item._id,
+      quantity: quantity,
+    };
+    dispatch({payload:'addToCart',data:dataToAddInCart})
   }
 
   // const notification = (title: string) => {
@@ -94,7 +106,6 @@ const ProductDetail: FC<{ item: oneProductType }> = ({ item }) => {
               if (subItem._key === imageForPreviewOfSelected) {
                 return (
                   <Image
-         
                     key={index}
                     width={3000}
                     height={3000}
@@ -148,13 +159,13 @@ const ProductDetail: FC<{ item: oneProductType }> = ({ item }) => {
             </div>
           </div>
           <div className="flex gap-x-8 items-center">
-            {/* <button
+            <button
               onClick={() => handleAddToCart()}
               className="flex items-center text-white bg-gray-900 border border-gray-500 px-4 py-2"
             >
               <BsCart2 />
               &nbsp; &nbsp; Add to Cart
-            </button> */}
+            </button>
             <p className="text-2xl font-semibold">
               ${item.price}
               {".00"}
@@ -174,9 +185,7 @@ const ProductDetail: FC<{ item: oneProductType }> = ({ item }) => {
             <div className="w-80">
               <h3 className="font-semibold">PRODUCT DETAILS</h3>
             </div>
-            <p>
-              {/* <PortableText content={item.description} /> */}
-            </p>
+            <p>{/* <PortableText content={item.description} /> */}</p>
           </div>
           <div className="flex px-2 py-8">
             <div className="w-80">
