@@ -6,16 +6,17 @@ import Image from "next/image";
 import { NavbarArray, NavbarItemType } from "../../utils/navbarArrayandTypes";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
-import { BsCart2 } from "react-icons/bs";
+
 import { HiOutlineChevronDown } from "react-icons/hi";
 import DropDown from "./DropDown";
 import Expand from "./Expand";
 import { useRouter } from "next/navigation";
+import ContextWrapper from "@/app/global/Context";
+import CartState from "./CartState";
 
 const Navbar = () => {
   const router = useRouter();
   const [isNavbarOpen, setNavbarOpen] = useState(false);
-  const [cartItemNumber, setcartItemNumber] = useState(0);
   const [Search, setSearch] = useState("");
 
   function handleSearchCalledFunc(e: any) {
@@ -24,6 +25,7 @@ const Navbar = () => {
     }
   }
   return (
+    <ContextWrapper>
     <div className="sticky top-0 bg-opacityDownColor backdrop-blur-lg z-50">
       <div className="flex py-6 justify-between items-center space-x-12 ">
         <div className="w-36 flex-shrink-0">
@@ -70,12 +72,7 @@ const Navbar = () => {
               placeholder="Search in Our Store"
             />
           </div>
-          <div className="flex-shrink-0 relative items-center flex justify-center rounded-full bg-gray-300 w-11 h-11">
-            <div className="absolute top-1 right-2 w-4 h-4 items-center flex justify-center bg-red-400 text-xs font-light rounded-full">
-              {cartItemNumber}
-            </div>
-            <BsCart2 size={24} />
-          </div>
+          <CartState/>
         </div>
         <div className="flex lg:hidden">
           <div onClick={() => setNavbarOpen(!isNavbarOpen)}>
@@ -93,6 +90,7 @@ const Navbar = () => {
       </div>
       {isNavbarOpen && <MobileNav />}
     </div>
+    </ContextWrapper>
   );
 };
 
