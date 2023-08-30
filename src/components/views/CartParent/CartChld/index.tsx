@@ -5,13 +5,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { cartContext } from "@/app/global/Context";
 import { oneProductType } from "@/components/utils/ProductDataArrayAndTypes";
 
-import imageUrlBuilder from "@sanity/image-url";
-import { client } from "../../../../../sanity/lib/client";
-
-const builder = imageUrlBuilder(client);
-function urlFor(source: any) {
-  return builder.image(source);
-}
 
 const CartComp = ({
   allProductsOfStore,
@@ -52,8 +45,8 @@ const CartComp = ({
                   {/* image */}
                   <Image
                     className="rounded-xl"
-                    src={urlFor(item.image[0]).width(1000).height(1000).url()}
-                    alt={item.image[0].alt}
+                    src={'feature.webp'}
+                    alt='nothing'
                     width={1000}
                     height={1000}
                   />
