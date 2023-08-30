@@ -9,7 +9,7 @@ interface SignupFormData {
 }
 
 const SignupFormComp = () => {
-  let {signUpUser} = useContext(cartContext)
+  let { signUpUser, signUpVaGoogle } = useContext(cartContext);
   // State to store input values
   const [formData, setFormData] = useState<SignupFormData>({
     fullName: "",
@@ -39,14 +39,13 @@ const SignupFormComp = () => {
     });
   };
 
-
-  function handleSignupWithGoogle(){
-    
+  function handleSignupWithGoogle() {
+    console.log("called");
+    signUpVaGoogle();
   }
 
   // Handle signup button click
   const handleSignup = () => {
-   
     // Reset validation errors
     setErrors({
       fullName: "",
@@ -96,7 +95,7 @@ const SignupFormComp = () => {
     if (isValid) {
       // Perform signup logic with formData
       console.log("Signing up with data:", formData);
-      signUpUser(formData.email,formData.password)
+      signUpUser(formData.email, formData.password);
     }
   };
 
@@ -176,19 +175,20 @@ const SignupFormComp = () => {
           )}
         </div>
         <div className="space-y-4">
+          <button
+            className="bg-purple-700 text-white mx-auto py-2 px-4 rounded-lg w-full hover:bg-purple-600 "
+            onClick={handleSignup}
+          >
+            {" "}
+            Signup
+          </button>
 
-        <button
-          className="bg-purple-700 text-white mx-auto py-2 px-4 rounded-lg w-full hover:bg-purple-600 "
-          onClick={handleSignup}
-        > Signup with Google
-        </button>
-
-        <button
-          className="bg-purple-700 text-white py-2 px-4 rounded-lg w-full hover:bg-purple-600"
-          onClick={handleSignupWithGoogle}
-        >
-          Sign Up 
-        </button>
+          <button
+            className="bg-purple-700 text-white py-2 px-4 rounded-lg w-full hover:bg-purple-600"
+            onClick={handleSignupWithGoogle}
+          >
+            Sign Up with Google
+          </button>
         </div>
       </div>
     </div>
@@ -196,3 +196,6 @@ const SignupFormComp = () => {
 };
 
 export default SignupFormComp;
+function signUpVaGoogle() {
+  throw new Error("Function not implemented.");
+}

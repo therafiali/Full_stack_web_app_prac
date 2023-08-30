@@ -48,6 +48,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   }, [state.cart]);
 
   let user = auth.currentUser;
+  console.log(user, "user data:", userData);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user: any) => {
@@ -56,6 +57,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
           displayName: user.displayName,
           email: user.email,
           uuid: user.uid,
+          photoUrl: user.photoUrl,
         });
       } else {
         setUserData(null);
@@ -65,7 +67,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   // console.log(userData);
   let provider = new GoogleAuthProvider();
 
-  function signUpViaGoogle() {
+  function signUpVaGoogle() {
     setLoading(true);
     return signInWithPopup(auth, provider).then((userData: any) => {
       console.log("user via google", userData.user);
@@ -75,9 +77,10 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
           displayName: userData.user.displayName,
           email: userData.user.email,
           uuid: userData.user.uid,
+          photoUrl: userData.user.photoUrl,
         });
       }
-      setLoading(false)
+      setLoading(false);
     });
   }
 
@@ -100,6 +103,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((res: any) => {
         setLoading(false);
+        console.log("res:", res);
       })
       .catch((res: any) => {
         setErrorViaUserCredential({
@@ -117,7 +121,17 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   }
 
   return (
-    <cartContext.Provider value={{ state, dispatch, signUpUser }}>
+    <cartContext.Provider
+      value={{
+        state,
+        dispatch,
+        signUpUser,
+        signUpVaGoogle,
+        signInUser,
+        loading,
+        LogOut,
+      }}
+    >
       {children}
     </cartContext.Provider>
   );
