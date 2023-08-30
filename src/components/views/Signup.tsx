@@ -39,6 +39,11 @@ const SignupFormComp = () => {
     });
   };
 
+
+  function handleSignupWithGoogle(){
+    
+  }
+
   // Handle signup button click
   const handleSignup = () => {
    
@@ -170,12 +175,21 @@ const SignupFormComp = () => {
             <p className="text-red-500 text-sm mt-1">{errors.password}</p>
           )}
         </div>
+        <div className="space-y-4">
+
+        <button
+          className="bg-purple-700 text-white mx-auto py-2 px-4 rounded-lg w-full hover:bg-purple-600 "
+          onClick={handleSignup}
+        > Signup with Google
+        </button>
+
         <button
           className="bg-purple-700 text-white py-2 px-4 rounded-lg w-full hover:bg-purple-600"
-          onClick={handleSignup}
+          onClick={handleSignupWithGoogle}
         >
-          Sign Up
+          Sign Up 
         </button>
+        </div>
       </div>
     </div>
   );
