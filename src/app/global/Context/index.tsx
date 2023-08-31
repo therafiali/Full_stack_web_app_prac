@@ -17,7 +17,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { log } from "console";
+import { useRouter } from "next/navigation";
 
 export const cartContext = createContext<any>(null);
 
@@ -26,6 +26,7 @@ interface indexForError {
 }
 
 const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
+  const router = useRouter()
   const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [ErrorViaUserCredential, setErrorViaUserCredential] = useState<
@@ -79,6 +80,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
           uuid: userData.user.uid,
           photoUrl: userData.user.photoUrl,
         });
+        router.push('/')
       }
       setLoading(false);
     });
@@ -89,6 +91,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((res: any) => {
         setLoading(false);
+        router.push('/')
       })
       .catch((res: any) => {
         setErrorViaUserCredential({
@@ -118,6 +121,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
     setLoading(true);
     signOut(auth);
     setLoading(false);
+    location.reload()
   }
 
   return (
@@ -130,6 +134,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
         signInUser,
         loading,
         LogOut,
+        userData,
       }}
     >
       {children}

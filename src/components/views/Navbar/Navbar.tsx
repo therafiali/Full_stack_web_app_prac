@@ -26,7 +26,7 @@ const Navbar = () => {
   }
   return (
     <ContextWrapper>
-    <div className="sticky top-0 bg-opacityDownColor backdrop-blur-lg z-50">
+    <div className="sticky top-0 bg-opacityDownColor backdrop-blur-lg z-40">
       <div className="flex py-6 justify-between items-center space-x-12 ">
         <div className="w-36 flex-shrink-0">
           <Image width={500} height={500} alt="Dine Store" src={"/Logo.webp"} />

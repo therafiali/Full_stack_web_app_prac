@@ -9,7 +9,7 @@ interface SignupFormData {
 }
 
 const SignupFormComp = () => {
-  let { signUpUser, signUpVaGoogle } = useContext(cartContext);
+  let { signUpUser, signUpVaGoogle, loading } = useContext(cartContext);
   // State to store input values
   const [formData, setFormData] = useState<SignupFormData>({
     fullName: "",
@@ -179,11 +179,11 @@ const SignupFormComp = () => {
             className="bg-purple-700 text-white mx-auto py-2 px-4 rounded-lg w-full hover:bg-purple-600 "
             onClick={handleSignup}
           >
-            {" "}
-            Signup
+            {loading ? "Loading..." : "Signup"}
           </button>
 
           <button
+          disabled = {loading}
             className="bg-purple-700 text-white py-2 px-4 rounded-lg w-full hover:bg-purple-600"
             onClick={handleSignupWithGoogle}
           >
