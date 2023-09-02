@@ -4,6 +4,7 @@ import ContextWrapper from "../global/Context";
 
 
 const SignupForm = () => {
+   
     return (
         <ContextWrapper>
             <SignupFormComp />

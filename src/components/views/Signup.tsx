@@ -1,6 +1,6 @@
 "use client";
 import { cartContext } from "@/app/global/Context";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 interface SignupFormData {
   fullName: string;
@@ -9,13 +9,22 @@ interface SignupFormData {
 }
 
 const SignupFormComp = () => {
-  let { signUpUser, signUpVaGoogle, loading } = useContext(cartContext);
+  let { signUpUser, signUpVaGoogle, loading, userData,sendEmailVerificationCode } = useContext(cartContext);
   // State to store input values
   const [formData, setFormData] = useState<SignupFormData>({
     fullName: "",
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (userData) {
+      window.location.href = "/"
+    }
+    // if (errorsOfFirebase.errorMessage.length > 0) {
+    //   notificationError(errorsOfFirebase.errorMessage)
+    // };
+  }, [userData]);
 
   // State to store validation errors
   const [errors, setErrors] = useState<SignupFormData>({
@@ -188,6 +197,12 @@ const SignupFormComp = () => {
             onClick={handleSignupWithGoogle}
           >
             Sign Up with Google
+          </button>
+        </div>
+        <div className="mt-3 border bg-gray-100 text-gray-800">
+          <p>Send Verification Email</p>
+          <button className="border bg-teal-100 text-slate-800" onClick={sendEmailVerificationCode}>
+            Send
           </button>
         </div>
       </div>

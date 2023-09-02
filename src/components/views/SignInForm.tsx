@@ -12,18 +12,18 @@ import { ImGoogle } from 'react-icons/im';
 // };
 
 const SignInForm = () => {
-  let { signInUser,loading } = useContext(cartContext)
+  let { signInUser,loading,userData } = useContext(cartContext)
   const [formData, setFormData] = useState({ email: '', password: '' });
 
 
-  // useEffect(() => {
-  //   if (userData) {
-  //     window.location.href = "/"
-  //   }
-  //   if (errorsOfFirebase.errorMessage.length > 0) {
-  //     notificationError(errorsOfFirebase.errorMessage)
-  //   };
-  // }, [userData, errorsOfFirebase]);
+  useEffect(() => {
+    if (userData) {
+      window.location.href = "/"
+    }
+    // if (errorsOfFirebase.errorMessage.length > 0) {
+    //   notificationError(errorsOfFirebase.errorMessage)
+    // };
+  }, [userData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

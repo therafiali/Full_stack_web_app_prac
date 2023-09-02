@@ -13,9 +13,11 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +28,7 @@ interface indexForError {
 }
 
 const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [ErrorViaUserCredential, setErrorViaUserCredential] = useState<
@@ -58,12 +60,13 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
           displayName: user.displayName,
           email: user.email,
           uuid: user.uid,
-          photoUrl: user.photoUrl,
+          photoUrl: user.photoURL,
         });
       } else {
         setUserData(null);
       }
     });
+    console.log(user);
   }, []);
   // console.log(userData);
   let provider = new GoogleAuthProvider();
@@ -78,9 +81,10 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
           displayName: userData.user.displayName,
           email: userData.user.email,
           uuid: userData.user.uid,
-          photoUrl: userData.user.photoUrl,
+          photoUrl: userData.user.photoURl,
+          emailVerified: userData.user.emailVerified,
         });
-        router.push('/')
+        router.push("/");
       }
       setLoading(false);
     });
@@ -91,7 +95,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password)
       .then((res: any) => {
         setLoading(false);
-        router.push('/')
+        router.push("/");
       })
       .catch((res: any) => {
         setErrorViaUserCredential({
@@ -121,7 +125,33 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
     setLoading(true);
     signOut(auth);
     setLoading(false);
-    location.reload()
+    location.reload();
+  }
+
+  function sendEmailVerificationCode() {
+    setLoading(true);
+    if (user) {
+      sendEmailVerification(user).then((res: any) => console.log("sended"));
+      window.location.href = "/";
+    }
+    setLoading(false);
+  }
+  function upadateUserNamePhoto(UserName: string, photoUrl: string) {
+    setLoading(true);
+    if (user) {
+      updateProfile(user, {
+        displayName: UserName,
+        photoURL:
+          "https://www.pngitem.com/pimgs/m/517-5177724_vector-transparent-stock-icon-svg-profile-user-profile.png",
+      })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch((error: any) => {
+          setLoading(false);
+          console.log(error);
+        });
+    }
   }
 
   return (
@@ -135,6 +165,8 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
         loading,
         LogOut,
         userData,
+        sendEmailVerificationCode,
+        upadateUserNamePhoto,
       }}
     >
       {children}
